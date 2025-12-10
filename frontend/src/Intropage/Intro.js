@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Intro.css";
-import EventPage from "../components/EventPage/EventPage";
 
-const Intro = () => {
+const Intro = ({ onComplete }) => {
+  console.log('Intro component rendered');
   const [progress, setProgress] = useState(0);
   const [loadingMessage, setLoadingMessage] = useState("Preparing your journey...");
   const [isLoaded, setIsLoaded] = useState(false);
@@ -71,26 +71,27 @@ const Intro = () => {
 
     let current = 0;
     const interval = setInterval(() => {
-      current += Math.random() * 18;
+      current += Math.random() * 3 + 1;
       if (current >= 100) {
         current = 100;
         setProgress(100);
         setLoadingMessage("Welcome to ASTONOVA!");
         clearInterval(interval);
-        setTimeout(() => setIsLoaded(true), 500);
+        setTimeout(() => {
+          setIsLoaded(true);
+          setTimeout(() => onComplete && onComplete(), 1500);
+        }, 1000);
       } else {
         setProgress(current);
         const idx = Math.min(messages.length - 1, Math.floor((current / 100) * messages.length));
         setLoadingMessage(messages[idx]);
       }
-    }, 200);
+    }, 150);
 
     return () => clearInterval(interval);
   }, [isLoaded]);
 
-  if (isLoaded) {
-    return <EventPage />;
-  }
+
 
   return (
     <div>

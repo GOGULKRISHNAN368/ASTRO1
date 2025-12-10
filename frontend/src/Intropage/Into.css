@@ -1,0 +1,274 @@
+/* ============================================================
+   GLOBAL RESET
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0a0f24;
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ============================================================
+   BACKGROUND LAYERS
+   ============================================================ */
+.gradient-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 30% 50%, #1a2a6c, #0a0f24);
+  z-index: -5;
+}
+
+.gradient-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 70% 30%, rgba(52, 152, 219, 0.25), transparent);
+  z-index: -4;
+}
+
+.grid-pattern {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.2;
+  z-index: -3;
+}
+
+/* ============================================================
+   PARTICLES
+   ============================================================ */
+.particles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(52, 152, 219, 0.7);
+  border-radius: 50%;
+  animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-1000px) scale(0.2); opacity: 0; }
+}
+
+/* ============================================================
+   LIGHT RAYS
+   ============================================================ */
+.light-rays {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.ray {
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(transparent, rgba(52, 152, 219, 0.4), transparent);
+  animation: rayMove linear infinite;
+}
+
+@keyframes rayMove {
+  0% { transform: translateY(100%); opacity: 0.2; }
+  100% { transform: translateY(-100%); opacity: 0.6; }
+}
+
+/* ============================================================
+   GLOW ORBS
+   ============================================================ */
+.glow-orbs {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: floatOrb 20s infinite ease-in-out alternate;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(-20px, -20px); }
+  100% { transform: translate(20px, 20px); }
+}
+
+/* ============================================================
+   MAIN CONTAINER
+   ============================================================ */
+.container {
+  width: 100%;
+  text-align: center;
+  padding-top: 100px;
+  color: white;
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero-section {
+  padding-top: 120px;
+}
+
+.event-title {
+  font-size: 100px;
+  font-weight: 800;
+  letter-spacing: 10px;
+  background: linear-gradient(to right, #a8e6ff, #4c8cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowTitle 2s infinite alternate;
+}
+
+@keyframes glowTitle {
+  0% { filter: drop-shadow(0 0 15px rgba(52, 152, 219, 0.3)); }
+  100% { filter: drop-shadow(0 0 25px rgba(52, 152, 219, 0.6)); }
+}
+
+.event-tagline {
+  margin-top: 10px;
+  font-size: 28px;
+  opacity: 0.9;
+}
+
+.event-dates {
+  margin-top: 5px;
+  font-size: 22px;
+  opacity: 0.8;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.cta-container {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cta-button {
+  padding: 14px 32px;
+  font-size: 18px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-weight: 600;
+}
+
+.cta-primary {
+  background: #3498db;
+  color: white;
+}
+
+.cta-primary:hover {
+  background: #2c82c9;
+}
+
+.cta-secondary {
+  background: transparent;
+  border: 2px solid #3498db;
+  color: #3498db;
+}
+
+.cta-secondary:hover {
+  background: #3498db;
+  color: white;
+}
+
+/* ============================================================
+   SCROLL INDICATOR
+   ============================================================ */
+.scroll-indicator {
+  margin: 60px auto 0;
+  width: 20px;
+  height: 35px;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  position: relative;
+}
+
+.scroll-indicator::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: scrollAnim 1.2s infinite;
+}
+
+@keyframes scrollAnim {
+  0% { opacity: 1; transform: translate(-50%, 3px); }
+  100% { opacity: 0; transform: translate(-50%, 20px); }
+}
+
+/* ============================================================
+   LOADING SECTION
+   ============================================================ */
+.loading-section {
+  margin-top: 200px;
+}
+
+.loading-title {
+  font-size: 34px;
+  letter-spacing: 3px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+}
+
+.progress-container {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.percentage-text {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: #3498db;
+  border-radius: 20px;
+  transition: width 0.3s linear;
+}
+
+.loading-message {
+  margin-top: 20px;
+  opacity: 0.7;
+  font-size: 18px;
+}

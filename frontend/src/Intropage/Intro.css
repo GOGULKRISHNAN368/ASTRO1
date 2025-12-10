@@ -117,17 +117,16 @@ body {
    MAIN CONTAINER
    ============================================================ */
 .container {
-  width: 100%;
-  text-align: center;
-  padding-top: 100px;
-  color: white;
+  padding-top: 40px;
 }
 
 /* ============================================================
    HERO SECTION
    ============================================================ */
 .hero-section {
-  padding-top: 120px;
+  padding-top: 60px;
+  text-align: center;
+  color: white;
 }
 
 .event-title {
@@ -135,6 +134,7 @@ body {
   font-weight: 800;
   letter-spacing: 10px;
   background: linear-gradient(to right, #a8e6ff, #4c8cff);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: glowTitle 2s infinite alternate;
@@ -231,7 +231,9 @@ body {
    LOADING SECTION
    ============================================================ */
 .loading-section {
-  margin-top: 200px;
+  margin-top: 40px;
+  text-align: center;
+  color: white;
 }
 
 .loading-title {
@@ -272,3 +274,5 @@ body {
   opacity: 0.7;
   font-size: 18px;
 }
+
+

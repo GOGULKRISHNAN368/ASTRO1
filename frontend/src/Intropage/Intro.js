@@ -1,15 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Intro.css";
+import EventPage from "../components/EventPage/EventPage";
 
 const Intro = () => {
-
-  // Smooth Scroll
-  const scrollToLoading = () => {
-    const section = document.getElementById("loading-section");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const [progress, setProgress] = useState(0);
+  const [loadingMessage, setLoadingMessage] = useState("Preparing your journey...");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Particles / Rays / Orbs Creation
   useEffect(() => {
@@ -62,6 +58,40 @@ const Intro = () => {
     }
   }, []);
 
+  // Simulated loading; hand off to EventPage at 100%
+  useEffect(() => {
+    if (isLoaded) return;
+    const messages = [
+      "Preparing your journey...",
+      "Loading event data...",
+      "Syncing schedules...",
+      "Configuring experience...",
+      "Almost ready...",
+    ];
+
+    let current = 0;
+    const interval = setInterval(() => {
+      current += Math.random() * 18;
+      if (current >= 100) {
+        current = 100;
+        setProgress(100);
+        setLoadingMessage("Welcome to ASTONOVA!");
+        clearInterval(interval);
+        setTimeout(() => setIsLoaded(true), 500);
+      } else {
+        setProgress(current);
+        const idx = Math.min(messages.length - 1, Math.floor((current / 100) * messages.length));
+        setLoadingMessage(messages[idx]);
+      }
+    }, 200);
+
+    return () => clearInterval(interval);
+  }, [isLoaded]);
+
+  if (isLoaded) {
+    return <EventPage />;
+  }
+
   return (
     <div>
       {/* Background Layers */}
@@ -81,10 +111,7 @@ const Intro = () => {
           <p className="event-dates">January 30 & 31</p>
 
           <div className="cta-container">
-            <button className="cta-button cta-primary" onClick={scrollToLoading}>
-              Explore Events
-            </button>
-
+            <button className="cta-button cta-primary">Explore Events</button>
             <button className="cta-button cta-secondary">Register Soon</button>
           </div>
 
@@ -96,15 +123,21 @@ const Intro = () => {
           <h2 className="loading-title">Initializing Experience</h2>
 
           <div className="progress-container">
-            <div className="percentage-text" id="percentage">0%</div>
+            <div className="percentage-text" id="percentage">
+              {Math.round(progress)}%
+            </div>
 
             <div className="progress-bar-track">
-              <div className="progress-bar-fill" id="progress-fill"></div>
+              <div
+                className="progress-bar-fill"
+                id="progress-fill"
+                style={{ width: `${progress}%` }}
+              ></div>
             </div>
           </div>
 
           <p className="loading-message" id="loading-message">
-            Preparing your journey...
+            {loadingMessage}
           </p>
         </section>
       </div>

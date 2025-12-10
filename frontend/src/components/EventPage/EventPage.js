@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./EventPage.css";
 
 const EventPage = () => {
@@ -14,7 +15,7 @@ const EventPage = () => {
             cultural showcases.
           </p>
           <div className="event-actions">
-            <a href="#register" className="primary-btn">Register</a>
+            <Link to="/registration" className="primary-btn">Register</Link>
             <a href="#about" className="ghost-btn">About Us</a>
           </div>
         </div>
@@ -110,7 +111,7 @@ const EventPage = () => {
               <li>Event days: 30 & 31 January</li>
             </ul>
           </div>
-          <a className="primary-btn" href="#home">Start Registration</a>
+          <Link to="/registration" className="primary-btn">Start Registration</Link>
         </div>
       </section>
 

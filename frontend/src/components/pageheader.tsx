@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Sun, Moon } from 'lucide-react';
 
 interface HeaderProps {
   useRouterLinks?: boolean;
@@ -9,13 +9,29 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState('/');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-  // Get current path from URL when useRouterLinks is true
+  // Initialize theme from localStorage or system preference
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    
+    setTheme(initialTheme);
+    document.documentElement.setAttribute('data-theme', initialTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
   useEffect(() => {
     if (useRouterLinks) {
       setCurrentPath(window.location.pathname);
     } else {
-      // For non-router links, use the current URL
       setCurrentPath(window.location.pathname);
     }
   }, [useRouterLinks]);
@@ -37,7 +53,6 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
     { name: 'Contact', path: '/contact' },
   ];
 
-  // Helper function to check if a link is active
   const isActiveLink = (path: string) => {
     if (path === '/') {
       return currentPath === '/';
@@ -58,9 +73,53 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
         }, 100);
       } else {
         window.location.href = path;
-        // Update current path for active highlighting
         setCurrentPath(path);
       }
+    }
+  };
+
+  const renderNavLink = (link: any, index: number) => {
+    const isActive = isActiveLink(link.path);
+    const linkContent = (
+      <>
+        <span className="relative z-10">{link.name}</span>
+        <div className={`absolute inset-0 bg-gradient-to-r from-orange-100 to-orange-200 rounded-lg transition-all duration-300 ${
+          isActive 
+            ? 'opacity-100 transform scale-100' 
+            : 'opacity-0 group-hover:opacity-100 transform scale-95 group-hover:scale-100'
+        }`} />
+        {isActive && (
+          <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full animate-pulse" />
+        )}
+      </>
+    );
+
+    const className = `relative group px-4 py-2 font-medium text-sm transition-colors duration-300 ${
+      isActive ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
+    }`;
+
+    if (useRouterLinks) {
+      return (
+        <a
+          key={link.name}
+          href={link.path}
+          className={className}
+          style={{ animationDelay: `${index * 0.1}s` }}
+        >
+          {linkContent}
+        </a>
+      );
+    } else {
+      return (
+        <div
+          key={link.name}
+          onClick={() => handleNavigation(link.path)}
+          className={`${className} cursor-pointer`}
+          style={{ animationDelay: `${index * 0.1}s` }}
+        >
+          {linkContent}
+        </div>
+      );
     }
   };
 
@@ -78,9 +137,9 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
             
             {/* Logo */}
             {useRouterLinks ? (
-              <Link to="/" className="flex-shrink-0 group cursor-pointer">
+              <a href="/" className="flex-shrink-0 group cursor-pointer">
                 {renderLogoContent()}
-              </Link>
+              </a>
             ) : (
               <div 
                 onClick={() => handleNavigation('/')}
@@ -92,65 +151,32 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
-              {navLinks.map((link, index) => {
-                const isActive = isActiveLink(link.path);
-                return useRouterLinks ? (
-                  <Link
-                    key={link.name}
-                    to={link.path}
-                    className={`relative group px-4 py-2 font-medium text-sm transition-colors duration-300 ${
-                      isActive 
-                        ? 'text-orange-600' 
-                        : 'text-gray-700 hover:text-orange-600'
-                    }`}
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <span className="relative z-10">{link.name}</span>
-                    <div className={`absolute inset-0 bg-gradient-to-r from-orange-100 to-orange-200 rounded-lg transition-all duration-300 ${
-                      isActive 
-                        ? 'opacity-100 transform scale-100' 
-                        : 'opacity-0 group-hover:opacity-100 transform scale-95 group-hover:scale-100'
-                    }`} />
-                    {/* Active indicator dot */}
-                    {isActive && (
-                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full animate-pulse" />
-                    )}
-                  </Link>
-                ) : (
-                  <div
-                    key={link.name}
-                    onClick={() => handleNavigation(link.path)}
-                    className={`relative group px-4 py-2 font-medium text-sm transition-colors duration-300 cursor-pointer ${
-                      isActive 
-                        ? 'text-orange-600' 
-                        : 'text-gray-700 hover:text-orange-600'
-                    }`}
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <span className="relative z-10">{link.name}</span>
-                    <div className={`absolute inset-0 bg-gradient-to-r from-orange-100 to-orange-200 rounded-lg transition-all duration-300 ${
-                      isActive 
-                        ? 'opacity-100 transform scale-100' 
-                        : 'opacity-0 group-hover:opacity-100 transform scale-95 group-hover:scale-100'
-                    }`} />
-                    {/* Active indicator dot */}
-                    {isActive && (
-                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full animate-pulse" />
-                    )}
-                  </div>
-                );
-              })}
+              {navLinks.map((link, index) => renderNavLink(link, index))}
             </div>
 
-            {/* Desktop CTA Button */}
+            {/* Desktop Actions */}
             <div className="hidden lg:flex items-center gap-3">
+              {/* Theme Toggle Button */}
+              <button
+                onClick={toggleTheme}
+                className="relative w-10 h-10 rounded-lg bg-white/70 backdrop-blur-sm border-2 border-orange-400/50 flex items-center justify-center hover:border-orange-500 transition-all duration-300 hover:scale-105 group"
+                aria-label="Toggle theme"
+              >
+                {theme === 'light' ? (
+                  <Sun className="w-5 h-5 text-orange-600 group-hover:rotate-90 transition-transform duration-300" />
+                ) : (
+                  <Moon className="w-5 h-5 text-orange-600 group-hover:rotate-12 transition-transform duration-300" />
+                )}
+              </button>
+
+              {/* Register Button */}
               {useRouterLinks ? (
-                <Link to="/registration">
+                <a href="/registration">
                   <button className="group relative px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full font-bold text-white text-sm overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(249,115,22,0.5)]">
                     <span className="relative z-10">Register</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                   </button>
-                </Link>
+                </a>
               ) : (
                 <button 
                   onClick={() => handleNavigation('/registration')}
@@ -162,30 +188,46 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
               )}
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden relative w-10 h-10 rounded-lg bg-white/70 backdrop-blur-sm border-2 border-orange-400/50 flex items-center justify-center hover:border-orange-500 transition-all duration-300 hover:scale-105"
-              aria-label="Toggle menu"
-            >
-              <div className="w-5 h-4 flex flex-col justify-between">
-                <span
-                  className={`w-full h-0.5 bg-orange-600 rounded-full transform transition-all duration-300 ${
-                    isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''
-                  }`}
-                />
-                <span
-                  className={`w-full h-0.5 bg-orange-600 rounded-full transition-all duration-300 ${
-                    isMobileMenuOpen ? 'opacity-0' : ''
-                  }`}
-                />
-                <span
-                  className={`w-full h-0.5 bg-orange-600 rounded-full transform transition-all duration-300 ${
-                    isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
-                  }`}
-                />
-              </div>
-            </button>
+            {/* Mobile Actions */}
+            <div className="lg:hidden flex items-center gap-2">
+              {/* Mobile Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="relative w-10 h-10 rounded-lg bg-white/70 backdrop-blur-sm border-2 border-orange-400/50 flex items-center justify-center hover:border-orange-500 transition-all duration-300 hover:scale-105"
+                aria-label="Toggle theme"
+              >
+                {theme === 'light' ? (
+                  <Sun className="w-5 h-5 text-orange-600" />
+                ) : (
+                  <Moon className="w-5 h-5 text-orange-600" />
+                )}
+              </button>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="relative w-10 h-10 rounded-lg bg-white/70 backdrop-blur-sm border-2 border-orange-400/50 flex items-center justify-center hover:border-orange-500 transition-all duration-300 hover:scale-105"
+                aria-label="Toggle menu"
+              >
+                <div className="w-5 h-4 flex flex-col justify-between">
+                  <span
+                    className={`w-full h-0.5 bg-orange-600 rounded-full transform transition-all duration-300 ${
+                      isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''
+                    }`}
+                  />
+                  <span
+                    className={`w-full h-0.5 bg-orange-600 rounded-full transition-all duration-300 ${
+                      isMobileMenuOpen ? 'opacity-0' : ''
+                    }`}
+                  />
+                  <span
+                    className={`w-full h-0.5 bg-orange-600 rounded-full transform transition-all duration-300 ${
+                      isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
+                    }`}
+                  />
+                </div>
+              </button>
+            </div>
           </div>
         </nav>
       </header>
@@ -196,7 +238,6 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
           isMobileMenuOpen ? 'visible' : 'invisible'
         }`}
       >
-        {/* Backdrop */}
         <div
           className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-500 ${
             isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
@@ -204,7 +245,6 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
           onClick={() => setIsMobileMenuOpen(false)}
         />
 
-        {/* Menu Panel */}
         <div
           className={`absolute top-0 right-0 w-full sm:w-80 h-full bg-gradient-to-br from-amber-50 to-orange-50 shadow-2xl transform transition-transform duration-500 ${
             isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
@@ -213,7 +253,7 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
           {/* Menu Header */}
           <div className="flex items-center justify-between p-6 border-b-2 border-orange-200/50">
             {useRouterLinks ? (
-              <Link to="/" className="flex items-center gap-3" onClick={() => setIsMobileMenuOpen(false)}>
+              <a href="/" className="flex items-center gap-3" onClick={() => setIsMobileMenuOpen(false)}>
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-purple-500 rounded-lg blur-md opacity-70 animate-pulse" />
                   <div className="relative bg-gradient-to-br from-orange-500 to-orange-600 p-2 rounded-lg">
@@ -228,7 +268,7 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
                     ASTRANOVA
                   </h2>
                 </div>
-              </Link>
+              </a>
             ) : (
               <div 
                 onClick={() => {
@@ -267,10 +307,10 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
           <nav className="p-6 space-y-2">
             {navLinks.map((link, index) => {
               const isActive = isActiveLink(link.path);
-              return useRouterLinks ? (
-                <Link
+              const linkElement = useRouterLinks ? (
+                <a
                   key={link.name}
-                  to={link.path}
+                  href={link.path}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 ${
                     isActive
@@ -298,7 +338,7 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
                   <svg className="w-5 h-5 ml-auto text-orange-500 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
-                </Link>
+                </a>
               ) : (
                 <div
                   key={link.name}
@@ -334,13 +374,14 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
                   </svg>
                 </div>
               );
+              return linkElement;
             })}
           </nav>
 
           {/* Mobile CTA */}
           <div className="p-6">
             {useRouterLinks ? (
-              <Link to="/registration" onClick={() => setIsMobileMenuOpen(false)}>
+              <a href="/registration" onClick={() => setIsMobileMenuOpen(false)}>
                 <button className="w-full group relative px-6 py-4 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl font-bold text-white overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(249,115,22,0.6)] shadow-lg">
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     <span>Register Now</span>
@@ -350,7 +391,7 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 </button>
-              </Link>
+              </a>
             ) : (
               <button
                 onClick={() => {
@@ -370,7 +411,6 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
             )}
           </div>
 
-          {/* Decorative Elements */}
           <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-300/30 to-purple-300/30 rounded-full blur-3xl" />
         </div>
       </div>
@@ -378,7 +418,6 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
   );
 };
 
-// Helper function to render logo content
 const renderLogoContent = () => (
   <div className="flex items-center gap-3">
     <div className="relative">

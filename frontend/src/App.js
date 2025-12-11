@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './App.css';
 
 import Intro from "./Intropage/Intro.tsx";
-import Header from "./components/pageheader.tsx";     
+import Header from "./components/pageheader.tsx"; 
+import Footer from './components/footer.tsx';    
 import Contact from "./components/Contact.tsx";
 import EventPage from './components/EventPage/EventPage.tsx';
 import Registration from './components/Registration/Registration';
@@ -41,6 +42,8 @@ function App() {
           <Route path="/contact" element={<Contact />} /> 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+
+              <Footer />
       </div>
     </Router>
   );

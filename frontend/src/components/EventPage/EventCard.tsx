@@ -1,5 +1,6 @@
-import { Event } from "./EventGrid.tsx";
-import { Category } from "./EventPage.tsx";
+import { Event } from "./EventGrid";
+import { Category } from "./EventPage";
+import { useNavigate } from 'react-router-dom';
 import { 
   FileText, Code, Mic, Brain, Eye, HelpCircle, 
   Laptop, Zap, Wrench, Timer, Search, Sparkles,
@@ -11,6 +12,7 @@ interface EventCardProps {
   event: Event;
   index: number;
   category: Category;
+  day: import("./EventPage").Day;
 }
 
 const categoryColors: Record<Category, { primary: string; secondary: string; light: string }> = {
@@ -74,9 +76,11 @@ const styles = `
   }
 `;
 
-export const EventCard = ({ event, index, category }: EventCardProps) => {
+export const EventCard = ({ event, index, category, day }: EventCardProps) => {
+  const navigate = useNavigate();
   const Icon = getEventIcon(event.name);
   const colors = categoryColors[category];
+  const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   
   return (
     <>
@@ -214,8 +218,16 @@ export const EventCard = ({ event, index, category }: EventCardProps) => {
             </span>
           </div>
 
-          {/* Category Badge */}
-          <div 
+          {/* Category / Register Button */}
+          <button
+            type="button"
+            onClick={() => {
+              if (category === 'flagship') {
+                const slug = slugify(event.name);
+                navigate(`/events/${day}/${category}/${slug}`);
+              }
+            }}
+            aria-label={category === 'flagship' ? 'View rules for event' : `${category} category`}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -228,7 +240,8 @@ export const EventCard = ({ event, index, category }: EventCardProps) => {
               fontWeight: 600,
               color: colors.primary,
               textTransform: 'capitalize',
-              transition: 'all 0.3s ease',
+              transition: 'all 0.15s ease',
+              cursor: 'pointer',
             }}
           >
             <span 
@@ -240,8 +253,8 @@ export const EventCard = ({ event, index, category }: EventCardProps) => {
                 boxShadow: `0 0 6px ${colors.primary}`,
               }}
             />
-            {category}
-          </div>
+            {category === 'flagship' ? 'Rules' : category}
+          </button>
         </div>
       </div>
     </>

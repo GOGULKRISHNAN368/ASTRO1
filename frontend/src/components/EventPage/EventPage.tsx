@@ -207,7 +207,7 @@ const EventPage = () => {
                 {currentEvents.length} events
               </span>
             </div>
-            <EventGrid events={currentEvents} category={selectedCategory} />
+            <EventGrid events={currentEvents} category={selectedCategory} day={selectedDay} />
           </div>
         </div>
       </div>

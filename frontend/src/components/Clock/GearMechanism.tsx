@@ -1,15 +1,16 @@
 import React from 'react';
-import Gear from './Gear.tsx';
+import Gear from './Gear';
 
 const GearMechanism: React.FC = () => {
   return (
     <div
       style={{
         position: 'absolute',
-        inset: 0,
+        inset: '5%',
         overflow: 'hidden',
         opacity: 0.6,
         zIndex: 1,
+        borderRadius: '50%',
       }}
     >
       {/* Large main gear - center */}

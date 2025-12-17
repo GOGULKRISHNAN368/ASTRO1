@@ -42,13 +42,13 @@ const EventDisplay: React.FC<EventDisplayProps> = ({ timeSlot, dayName }) => {
         `}
       </style>
       
-      {/* Time Header */}
+      {/* Priority Header */}
       <div
         style={{
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          gap: '16px',
+          gap: '12px',
           marginBottom: '20px',
           paddingBottom: '16px',
           borderBottom: '1px solid hsl(43, 30%, 20%)',
@@ -56,28 +56,75 @@ const EventDisplay: React.FC<EventDisplayProps> = ({ timeSlot, dayName }) => {
       >
         <div
           style={{
-            fontFamily: 'Orbitron, sans-serif',
-            fontSize: '28px',
-            fontWeight: 700,
-            color: 'hsl(43, 74%, 49%)',
-            textShadow: '0 0 20px hsl(43, 100%, 50%, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
           }}
         >
-          {timeSlot.displayTime}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'Rajdhani, sans-serif',
+                fontSize: '14px',
+                fontWeight: 500,
+                color: 'hsl(45, 30%, 70%)',
+                textTransform: 'uppercase',
+                letterSpacing: '2px',
+              }}
+            >
+              EVENT
+            </span>
+            <div
+              style={{
+                fontFamily: 'Orbitron, sans-serif',
+                fontSize: '32px',
+                fontWeight: 700,
+                color: 'hsl(43, 74%, 49%)',
+                textShadow: '0 0 20px hsl(43, 100%, 50%, 0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '56px',
+                height: '56px',
+                background: 'radial-gradient(circle, hsl(43, 74%, 49%, 0.15) 0%, transparent 70%)',
+                borderRadius: '50%',
+                border: '2px solid hsl(43, 74%, 49%, 0.3)',
+              }}
+            >
+              #{timeSlot.hour}
+            </div>
+          </div>
+          <div
+            style={{
+              padding: '4px 12px',
+              background: 'hsl(43, 74%, 49%, 0.15)',
+              borderRadius: '20px',
+              fontSize: '12px',
+              fontWeight: 600,
+              color: 'hsl(43, 80%, 65%)',
+              border: '1px solid hsl(43, 74%, 49%, 0.3)',
+            }}
+          >
+            {dayName.split(' - ')[0]}
+          </div>
         </div>
-        <div
+        <p
           style={{
-            padding: '4px 12px',
-            background: 'hsl(43, 74%, 49%, 0.15)',
-            borderRadius: '20px',
+            fontFamily: 'Rajdhani, sans-serif',
             fontSize: '12px',
-            fontWeight: 600,
-            color: 'hsl(43, 80%, 65%)',
-            border: '1px solid hsl(43, 74%, 49%, 0.3)',
+            color: 'hsl(45, 10%, 50%)',
+            margin: 0,
+            fontStyle: 'italic',
           }}
         >
-          {dayName.split(' - ')[0]}
-        </div>
+          Event order on the schedule • Lower number = Earlier in the day
+        </p>
       </div>
 
       {/* Events Grid */}

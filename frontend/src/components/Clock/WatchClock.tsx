@@ -1,11 +1,11 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import ClockNumber from './ClockNumber.tsx';
-import ClockHands from './ClockHands.tsx';
-import GearMechanism from './GearMechanism.tsx';
-import EventDisplay from './EventDisplay.tsx';
-import DaySelector from './DaySelector.tsx';
-import { eventSchedule } from './eventData.ts';
-import { TimeSlot } from './types.ts';
+import ClockNumber from './ClockNumber';
+import ClockHands from './ClockHands';
+import GearMechanism from './GearMechanism';
+import EventDisplay from './EventDisplay';
+import DaySelector from './DaySelector';
+import { eventSchedule } from './eventData';
+import { TimeSlot } from './types';
 
 const WatchClock: React.FC = () => {
   const [selectedDay, setSelectedDay] = useState<1 | 2>(1);
@@ -151,8 +151,8 @@ const WatchClock: React.FC = () => {
               position: 'absolute',
               inset: '15%',
               borderRadius: '50%',
-              background: 'radial-gradient(circle, hsl(0, 0%, 5%, 0.9) 0%, hsl(0, 0%, 3%, 0.95) 100%)',
-              boxShadow: 'inset 0 0 40px hsl(0, 0%, 0%, 0.5)',
+              background: 'radial-gradient(circle, hsl(0, 0%, 18%) 0%, hsl(0, 0%, 12%) 100%)',
+              boxShadow: 'inset 0 0 40px hsl(0, 0%, 0%, 0.3)',
               zIndex: 10,
             }}
           />
@@ -238,13 +238,14 @@ const WatchClock: React.FC = () => {
                   position: 'absolute',
                   left: '50%',
                   top: '12%',
-                  width: isMajor ? '2px' : '1px',
-                  height: isMajor ? '12px' : '6px',
-                  background: isMajor ? 'hsl(43, 74%, 49%)' : 'hsl(43, 30%, 30%)',
+                  width: isMajor ? '3px' : '2px',
+                  height: isMajor ? '14px' : '8px',
+                  background: isMajor ? 'hsl(43, 80%, 55%)' : 'hsl(43, 50%, 45%)',
                   transformOrigin: `center ${(50 - 12)}vmin`,
                   transform: `translateX(-50%) rotate(${angle}deg)`,
                   zIndex: 12,
-                  opacity: isMajor ? 1 : 0.5,
+                  opacity: 1,
+                  boxShadow: isMajor ? '0 0 4px hsl(43, 80%, 55%, 0.5)' : 'none',
                 }}
               />
             );
@@ -285,7 +286,7 @@ const WatchClock: React.FC = () => {
             color: 'hsl(45, 10%, 40%)',
           }}
         >
-          Click on the clock numbers to explore events at each time slot
+          Click on the clock numbers to explore events by priority
         </p>
       </div>
     </div>

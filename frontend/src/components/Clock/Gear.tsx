@@ -84,7 +84,7 @@ const Gear: React.FC<GearProps> = ({
         d={generateGearPath()} 
         fill={`url(#gear-gradient-${size}-${teeth})`}
         stroke={color}
-        strokeWidth="1"
+        strokeWidth="3"
         filter={`url(#gear-shadow-${size})`}
       />
       {/* Center hole */}
@@ -94,7 +94,7 @@ const Gear: React.FC<GearProps> = ({
         r={holeRadius} 
         fill={innerColor}
         stroke={color}
-        strokeWidth="2"
+        strokeWidth="4"
       />
       {/* Inner decorative circles */}
       <circle 
@@ -103,8 +103,8 @@ const Gear: React.FC<GearProps> = ({
         r={holeRadius * 0.6} 
         fill="none"
         stroke={color}
-        strokeWidth="1"
-        opacity="0.5"
+        strokeWidth="2"
+        opacity="0.7"
       />
       {/* Spokes */}
       {[0, 60, 120, 180, 240, 300].map((angle, i) => (
@@ -115,8 +115,8 @@ const Gear: React.FC<GearProps> = ({
           x2={center + Math.cos((angle * Math.PI) / 180) * ((size / 2) * 0.6)}
           y2={center + Math.sin((angle * Math.PI) / 180) * ((size / 2) * 0.6)}
           stroke={color}
-          strokeWidth="2"
-          opacity="0.4"
+          strokeWidth="4"
+          opacity="0.6"
         />
       ))}
     </svg>

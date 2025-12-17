@@ -9,6 +9,7 @@ export interface Event {
 interface EventGridProps {
   events: Event[];
   category: Category;
+  day: import("./EventPage").Day;
 }
 
 const styles = `
@@ -18,7 +19,7 @@ const styles = `
   }
 `;
 
-export const EventGrid = ({ events, category }: EventGridProps) => {
+export const EventGrid = ({ events, category, day }: EventGridProps) => {
   if (events.length === 0) {
     return (
       <>
@@ -65,7 +66,7 @@ export const EventGrid = ({ events, category }: EventGridProps) => {
       }}
     >
       {events.map((event, index) => (
-        <EventCard key={event.name} event={event} index={index} category={category} />
+        <EventCard key={event.name} event={event} index={index} category={category} day={day} />
       ))}
     </div>
   );

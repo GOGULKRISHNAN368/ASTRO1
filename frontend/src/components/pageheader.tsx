@@ -10,6 +10,9 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState('/');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [scrollDirection, setScrollDirection] = useState('up');
 
   // Initialize theme from localStorage or system preference
   useEffect(() => {
@@ -38,11 +41,19 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 20);
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setScrollDirection('down');
+      } else {
+        setScrollDirection('up');
+      }
+      setLastScrollY(currentScrollY);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -125,12 +136,22 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
 
   return (
     <>
+      {/* Hover trigger area - only on non-home pages */}
+      {currentPath !== '/' && (
+        <div 
+          className="fixed top-0 left-0 right-0 h-4 z-[100]"
+          onMouseEnter={() => setIsHeaderVisible(true)}
+        />
+      )}
+      
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'bg-white/80 backdrop-blur-lg shadow-lg border-b-2 border-orange-200/50'
-            : 'bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+          currentPath === '/' || isHeaderVisible || scrollDirection === 'up'
+            ? 'transform translate-y-0 bg-white/90 backdrop-blur-lg shadow-lg border-b-2 border-orange-200/50'
+            : 'transform -translate-y-full bg-white/90 backdrop-blur-lg shadow-lg border-b-2 border-orange-200/50'
         }`}
+        onMouseEnter={() => setIsHeaderVisible(true)}
+        onMouseLeave={() => currentPath !== '/' && setIsHeaderVisible(false)}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
@@ -209,10 +230,10 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
                 className="relative w-10 h-10 rounded-lg bg-white/70 backdrop-blur-sm border-2 border-orange-400/50 flex items-center justify-center hover:border-orange-500 transition-all duration-300 hover:scale-105"
                 aria-label="Toggle menu"
               >
-                <div className="w-5 h-4 flex flex-col justify-between">
+                <div className="w-5 h-4 flex flex-col justify-center relative">
                   <span
-                    className={`w-full h-0.5 bg-orange-600 rounded-full transform transition-all duration-300 ${
-                      isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''
+                    className={`absolute w-full h-0.5 bg-orange-600 rounded-full transform transition-all duration-300 ${
+                      isMobileMenuOpen ? 'rotate-45' : '-translate-y-1.5'
                     }`}
                   />
                   <span
@@ -221,8 +242,8 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
                     }`}
                   />
                   <span
-                    className={`w-full h-0.5 bg-orange-600 rounded-full transform transition-all duration-300 ${
-                      isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
+                    className={`absolute w-full h-0.5 bg-orange-600 rounded-full transform transition-all duration-300 ${
+                      isMobileMenuOpen ? '-rotate-45' : 'translate-y-1.5'
                     }`}
                   />
                 </div>
@@ -234,7 +255,7 @@ const Header: React.FC<HeaderProps> = ({ useRouterLinks = true }) => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${
+        className={`fixed inset-0 z-[110] lg:hidden transition-all duration-500 ${
           isMobileMenuOpen ? 'visible' : 'invisible'
         }`}
       >

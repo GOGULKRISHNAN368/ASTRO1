@@ -96,8 +96,8 @@ const Intro: React.FC<IntroProps> = ({ onComplete }) => {
         <div className="relative z-10 flex items-center justify-center min-h-screen px-4 py-12">
           <div className="max-w-6xl w-full">
             {/* Title */}
-            <div className={`text-center mb-4 transition-all duration-1000 ${showContent ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-4 scale-95"}`}>
-              <h1 className="text-7xl md:text-9xl font-black tracking-tighter mb-2">
+            <div className={`text-center mb-4 transition-all duration-1000 px-6 ${showContent ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-4 scale-95"}`}>
+              <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-2">
                 <span className="bg-gradient-to-r from-orange-600 via-orange-500 to-red-600 bg-clip-text text-transparent animate-[gradient_3s_ease_infinite] bg-[length:200%_auto]">
                   ASTRANOVA
                 </span>
@@ -127,16 +127,16 @@ const Intro: React.FC<IntroProps> = ({ onComplete }) => {
             <div className={`text-center transition-all duration-1000 ${showContent ? "opacity-100" : "opacity-0"}`}>
               <p className="text-gray-700 text-sm uppercase tracking-widest mb-6 font-semibold">Event Starts In</p>
 
-              <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto">
+              <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-2xl mx-auto px-2">
                 {timeBlocks.map((block) => (
                   <div
                     key={block.label}
-                    className="bg-white/70 backdrop-blur-sm border-2 border-orange-400/50 rounded-2xl p-6 shadow-lg"
+                    className="bg-white/70 backdrop-blur-sm border-2 border-orange-400/50 rounded-xl p-2 sm:p-6 shadow-lg min-w-0"
                   >
-                    <div className="text-4xl md:text-5xl font-bold bg-gradient-to-br from-orange-600 to-orange-500 bg-clip-text text-transparent mb-2">
+                    <div className="text-xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-br from-orange-600 to-orange-500 bg-clip-text text-transparent mb-1 sm:mb-2">
                       {String(block.value).padStart(2, "0")}
                     </div>
-                    <div className="text-gray-600 text-xs uppercase tracking-wider font-semibold">
+                    <div className="text-gray-600 text-xs uppercase tracking-tight font-semibold truncate">
                       {block.label}
                     </div>
                   </div>

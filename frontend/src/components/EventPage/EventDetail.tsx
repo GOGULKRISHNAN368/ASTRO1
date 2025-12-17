@@ -50,7 +50,7 @@ const EventDetail: React.FC = () => {
   const rules = event.rules || eventRules[slugKey] || null;
 
   return (
-    <div style={{ padding: '40px', maxWidth: 900, margin: '0 auto' }}>
+    <div style={{ padding: '100px 40px 40px', maxWidth: 900, margin: '0 auto' }}>
       <h1 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', textAlign: 'center', marginBottom: 12 }}>{event.name}</h1>
       {event.description && <p style={{ color: '#666' }}>{event.description}</p>}
 

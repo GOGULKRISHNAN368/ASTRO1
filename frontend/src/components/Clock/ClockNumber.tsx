@@ -37,19 +37,19 @@ const ClockNumber: React.FC<ClockNumberProps> = ({
         fontFamily: 'Orbitron, sans-serif',
         fontSize: '18px',
         fontWeight: isActive ? 700 : 500,
-        color: isActive ? 'hsl(43, 74%, 49%)' : hasEvents ? 'hsl(45, 30%, 80%)' : 'hsl(0, 0%, 50%)',
+        color: isActive ? 'hsl(43, 74%, 49%)' : hasEvents ? 'hsl(45, 30%, 90%)' : 'hsl(0, 0%, 70%)',
         background: isActive 
-          ? 'radial-gradient(circle, hsl(43, 74%, 49%, 0.2) 0%, transparent 70%)'
-          : 'transparent',
+          ? 'radial-gradient(circle, hsl(43, 74%, 49%, 0.3) 0%, hsl(0, 0%, 0%, 0.4) 70%)'
+          : 'radial-gradient(circle, hsl(0, 0%, 0%, 0.3) 0%, transparent 70%)',
         border: 'none',
         borderRadius: '50%',
         cursor: hasEvents ? 'pointer' : 'default',
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         textShadow: isActive 
-          ? '0 0 20px hsl(43, 100%, 50%), 0 0 40px hsl(43, 100%, 50%, 0.5)'
+          ? '0 0 20px hsl(43, 100%, 50%), 0 0 40px hsl(43, 100%, 50%, 0.5), 2px 2px 4px hsl(0, 0%, 0%, 0.8)'
           : hasEvents 
-            ? '0 0 10px hsl(43, 74%, 49%, 0.3)'
-            : 'none',
+            ? '0 0 10px hsl(43, 74%, 49%, 0.3), 2px 2px 4px hsl(0, 0%, 0%, 0.8)'
+            : '2px 2px 4px hsl(0, 0%, 0%, 0.8)',
         zIndex: 20,
       }}
       onMouseEnter={(e) => {

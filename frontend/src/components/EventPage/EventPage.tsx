@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { EventHeader } from "./EventHeader.tsx";
-import { DaySelector } from "./DaySelector.tsx";
-import { CategoryTabs } from "./CategoryTabs.tsx";
-import { EventGrid } from "./EventGrid.tsx";
-import { eventsData } from "./eventsData.ts";
+import { EventHeader } from "./EventHeader";
+import { DaySelector } from "./DaySelector";
+import { CategoryTabs } from "./CategoryTabs";
+import { EventGrid } from "./EventGrid";
+import { eventsData } from "./eventsData";
 
 export type Day = "day1" | "day2";
 export type Category = "flagship" | "technical" | "non-technical" | "games";

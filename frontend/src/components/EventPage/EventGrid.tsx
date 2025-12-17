@@ -1,5 +1,5 @@
-import { EventCard } from "./EventCard.tsx";
-import { Category } from "./EventPage.tsx";
+import { EventCard } from "./EventCard";
+import { Category } from "./EventPage";
 
 export interface Event {
   name: string;

@@ -1,4 +1,4 @@
-import { Category } from "./EventPage.tsx";
+import { Category } from "./EventPage";
 import { Code, Gamepad2, Trophy, Users } from "lucide-react";
 
 interface CategoryTabsProps {

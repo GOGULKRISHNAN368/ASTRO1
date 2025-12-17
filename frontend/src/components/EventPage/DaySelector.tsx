@@ -1,4 +1,4 @@
-import { Day } from "./EventPage.tsx";
+import { Day } from "./EventPage";
 
 interface DaySelectorProps {
   selectedDay: Day;

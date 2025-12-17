@@ -46,8 +46,10 @@ export const EventHeader = () => {
       <div 
         style={{
           textAlign: 'center',
-          paddingTop: 'clamp(24px, 6vw, 48px)',
+          paddingTop: 'clamp(80px, 12vw, 120px)',
           position: 'relative',
+          paddingLeft: 'clamp(16px, 4vw, 24px)',
+          paddingRight: 'clamp(16px, 4vw, 24px)',
         }}
       >
         {/* Decorative top line */}

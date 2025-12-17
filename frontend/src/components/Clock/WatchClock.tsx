@@ -77,6 +77,7 @@ const WatchClock: React.FC = () => {
       <div
         style={{
           textAlign: 'center',
+          marginTop: '80px',
         }}
       >
         <h1
@@ -87,21 +88,11 @@ const WatchClock: React.FC = () => {
             color: 'hsl(43, 74%, 49%)',
             textShadow: '0 0 30px hsl(43, 100%, 50%, 0.5), 0 0 60px hsl(43, 100%, 50%, 0.3)',
             letterSpacing: '4px',
-            marginBottom: '8px',
+            marginBottom: '0px',
           }}
         >
           ASTRANOVA 2024
         </h1>
-        <p
-          style={{
-            fontFamily: 'Rajdhani, sans-serif',
-            fontSize: 'clamp(14px, 2.5vw, 18px)',
-            color: 'hsl(45, 10%, 55%)',
-            letterSpacing: '2px',
-          }}
-        >
-          Technical & Cultural Fest
-        </p>
       </div>
 
       {/* Day Selector */}

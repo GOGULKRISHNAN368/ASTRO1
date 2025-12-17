@@ -1,70 +1,206 @@
-# Getting Started with Create React App
+# ASTRANOVA 2024 - Technical & Cultural Fest Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive React application for ASTRANOVA 2024, featuring an interactive event schedule, animated components, and a sleek user interface.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+- **Interactive Clock Schedule** - Unique watch-style event scheduler with auto-advancing time slots
+- **Event Management** - Comprehensive event listing with categories, rules, and registration
+- **Responsive Design** - Mobile-first approach with adaptive layouts
+- **Animated UI** - Smooth transitions, gear animations, and interactive elements
+- **Auto-hide Navigation** - Windows taskbar-style header behavior
+- **Real-time Countdown** - Live countdown timer to event start date
+- **Dark/Light Theme** - Toggle between theme modes
 
-### `npm start`
+## 🛠️ Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React 19.2.1** - Frontend framework
+- **TypeScript** - Type safety and better development experience
+- **Tailwind CSS 3.4.18** - Utility-first CSS framework
+- **React Router DOM 7.10.1** - Client-side routing
+- **Lucide React** - Modern icon library
+- **PostCSS & Autoprefixer** - CSS processing
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📁 Project Structure
 
-### `npm test`
+```
+src/
+├── components/
+│   ├── Clock/                    # Interactive watch-style scheduler
+│   │   ├── WatchClock.tsx       # Main clock component
+│   │   ├── ClockHands.tsx       # Animated clock hands
+│   │   ├── ClockNumber.tsx      # Interactive hour numbers
+│   │   ├── EventDisplay.tsx     # Event information panel
+│   │   ├── DaySelector.tsx      # Day 1/2 toggle
+│   │   ├── Gear.tsx             # Individual gear component
+│   │   ├── GearMechanism.tsx    # Animated gear background
+│   │   ├── eventData.ts         # Event schedule data
+│   │   └── types.ts             # TypeScript interfaces
+│   │
+│   ├── EventPage/               # Event listing and management
+│   │   ├── EventPage.tsx        # Main events page
+│   │   ├── EventHeader.tsx      # Page header with title
+│   │   ├── EventGrid.tsx        # Event cards grid
+│   │   ├── EventCard.tsx        # Individual event card
+│   │   ├── EventDetail.tsx      # Event details modal
+│   │   ├── CategoryTabs.tsx     # Event category filters
+│   │   ├── DaySelector.tsx      # Day selection component
+│   │   ├── eventsData.ts        # Event data
+│   │   └── eventRules.ts        # Event rules and guidelines
+│   │
+│   ├── CircuitTimeline/         # Alternative timeline view
+│   │   ├── CircuitTimeline.tsx  # Main timeline component
+│   │   ├── CircuitNode.tsx      # Timeline event nodes
+│   │   └── CircuitBackground.tsx # Animated background
+│   │
+│   ├── Registration/            # Registration components
+│   ├── pageheader.tsx          # Auto-hide navigation header
+│   ├── footer.tsx              # Site footer
+│   └── Contact.tsx             # Contact page
+│
+├── Intropage/
+│   └── Intro.tsx               # Landing page with countdown
+│
+├── App.js                      # Main app component
+├── index.css                   # Global styles and animations
+└── index.js                    # App entry point
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🎨 Key Components
 
-### `npm run build`
+### Clock Schedule (`/clock`)
+- **Interactive Watch Interface** - Click hour numbers to view events
+- **Auto-advancing Time** - Automatically cycles through event hours
+- **Animated Gears** - Background mechanical animations
+- **Day Selection** - Toggle between Day 1 (Technical) and Day 2 (Cultural)
+- **Event Display Panel** - Shows detailed event information
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Event Management (`/events`)
+- **Category Filtering** - Flagship, Technical, Non-technical, Games
+- **Day Selection** - Filter events by day
+- **Event Cards** - Interactive cards with hover effects
+- **Event Modals** - Detailed view with rules, prizes, and contact info
+- **Responsive Grid** - Adaptive layout for all screen sizes
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Navigation Header
+- **Auto-hide Behavior** - Slides up/down like Windows taskbar
+- **Permanent on Home** - Always visible on landing page
+- **Scroll Detection** - Shows when scrolling up (mobile-friendly)
+- **Theme Toggle** - Switch between light/dark modes
+- **Mobile Menu** - Responsive hamburger menu
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Landing Page (`/`)
+- **Animated Title** - Gradient text with animations
+- **Live Countdown** - Real-time timer to event date
+- **Responsive Layout** - Mobile-optimized countdown grid
+- **Background Effects** - Floating elements and gradients
 
-### `npm run eject`
+## 🚀 Getting Started
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd frontend
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. **Start development server**
+   ```bash
+   npm start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. **Open browser**
+   Navigate to `http://localhost:3000`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Available Scripts
 
-### Code Splitting
+- `npm start` - Runs development server
+- `npm build` - Creates production build
+- `npm test` - Runs test suite
+- `npm eject` - Ejects from Create React App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🎯 Routes
 
-### Analyzing the Bundle Size
+- `/` - Landing page with countdown and intro
+- `/events` - Event listing and management
+- `/clock` - Interactive clock schedule
+- `/CircuitTimeline` - Alternative timeline view
+- `/contact` - Contact information
+- `/registration` - Event registration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🎨 Styling
 
-### Making a Progressive Web App
+- **Tailwind CSS** - Utility-first styling
+- **Custom Animations** - Gear rotations, fades, and transitions
+- **Responsive Design** - Mobile-first approach
+- **Theme Support** - Light/dark mode variables
+- **Custom Gradients** - Brand-consistent color schemes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📱 Mobile Optimization
 
-### Advanced Configuration
+- **Responsive Countdown** - Compact 4-column layout
+- **Touch-friendly Navigation** - Large tap targets
+- **Optimized Typography** - Clamp-based responsive text
+- **Mobile Menu** - Slide-out navigation
+- **Scroll Behavior** - Header shows on scroll up
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🔧 Configuration
 
-### Deployment
+### Event Data
+- Edit `src/components/Clock/eventData.ts` for schedule
+- Edit `src/components/EventPage/eventsData.ts` for event details
+- Edit `src/components/EventPage/eventRules.ts` for rules
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Styling
+- Modify `tailwind.config.js` for theme customization
+- Edit `src/index.css` for global styles and animations
 
-### `npm run build` fails to minify
+### Countdown Timer
+- Update event date in `src/Intropage/Intro.tsx`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🎭 Animations
+
+- **Gear Mechanisms** - Multiple rotation speeds and directions
+- **Clock Hands** - Smooth transitions with easing
+- **Card Interactions** - Hover effects and transforms
+- **Page Transitions** - Fade-ins and slide animations
+- **Loading States** - Skeleton screens and spinners
+
+## 🌟 Special Features
+
+- **Auto-advancing Clock** - Cycles through events every 3 seconds
+- **Interactive Time Selection** - Click any hour to jump to events
+- **Priority-based Display** - Events ordered by schedule priority
+- **Responsive Modals** - Adaptive sizing and positioning
+- **Smooth Scrolling** - Enhanced user experience
+- **Accessibility** - ARIA labels and keyboard navigation
+
+## 📄 License
+
+This project is private and proprietary to ASTRANOVA 2024.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
+
+## 📞 Support
+
+For technical support or questions, contact the development team.
+
+---
+
+**ASTRANOVA 2024** - Ignite the Future 🚀
